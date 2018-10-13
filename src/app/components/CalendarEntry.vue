@@ -1,13 +1,21 @@
 <template>
     <div id="calendar-entry">
         <div class="calendar-entry-note">
-            <input type="text" placeholder="New Event" v-model="inputEntry" required/>
+            <input type="text"
+                   placeholder="New Event"
+                   v-model="inputEntry"
+                   required
+            />
             <p class="calendar-entry-day">Day of event: <span class="bold">{{titleOfActiveDay}}</span></p>
             <a class="button is-primary is-small is-outlined"
                 @click="submitEvent(inputEntry)">
                 Submit
             </a>
         </div>
+        <p class="error"
+           v-if="error">
+            Type something first!
+        </p>
     </div>
 </template>
 
@@ -22,13 +30,19 @@
         },
         data () {
             return {
-                inputEntry: ''
+                inputEntry: '',
+                // Return false when no entry
+                error: false
             }
         },
         methods: {
             submitEvent (eventDetails) {
+                // If eventDetails returns blank, return error
+                if (eventDetails === '') return this.error = true;
+                // If eventDetails does not return blank, return no error
                 store.submitEvent(eventDetails);
                 this.inputEntry = '';
+                this.error = false;
             }
         }
     }
@@ -73,6 +87,11 @@
             display: block;
             margin: 0 auto;
         }
+    }
+    .error {
+        margin-top: 2px;
+        color: red;
+        font-size: 13px;
     }
 }
 </style>
