@@ -11,9 +11,11 @@
         </div>
         <div v-if="event.edit">
             <input type="text"
-                   :placeholder="event.details"/>
+                   :placeholder="event.details"
+                    v-model="newEventDetails"/>
             <div class="has=text-centered icons">
-                <i class="fa fa-check"></i>
+                <i class="fa fa-check"
+                    @click="updateEvent(day.id, event.details, newEventDetails)"></i>
             </div>
         </div>
     </div>
@@ -34,6 +36,19 @@
         methods: {
             editEvent (dayId, eventDetails) {
                 store.editEvent(dayId, eventDetails);
+            },
+            updateEvent (dayId, originalEventDetails, updateEventDetails) {
+                // If no changes are made, events stay unchanged
+                if (updateEventDetails === '') updateEventDetails = originalEventDetails;
+                // Make changes in edit mode
+                store.updateEvent(dayId, originalEventDetails, updateEventDetails);
+                // Set input valie back to empty string
+                this.newEventDetails = '';
+            }
+        },
+        data () {
+            return {
+                newEventDetails: ''
             }
         }
     }
@@ -46,6 +61,7 @@
         display: block;
         color: #4C4C4C;
         padding: 5px;
+        text-align: center;
 
         .details {
             display: block;
