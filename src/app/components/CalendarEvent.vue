@@ -6,7 +6,9 @@
                 <i class="fa fa-pencil-square edit-icon"
                     @click="editEvent(day.id, event.details)">
                 </i>
-                <i class="fa fa-trash-o delete-icon"></i>
+                <i class="fa fa-trash-o delete-icon"
+                    @click="deleteEvent(day.id, event.details)">
+                </i>
             </div>
         </div>
         <div v-if="event.edit">
@@ -44,6 +46,9 @@
                 store.updateEvent(dayId, originalEventDetails, updateEventDetails);
                 // Set input valie back to empty string
                 this.newEventDetails = '';
+            },
+            deleteEvent (dayId, eventDetails) {
+                store.deleteEvent(dayId, eventDetails);
             }
         },
         data () {
