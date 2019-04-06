@@ -17,3 +17,7 @@ npm run serve
 ````
 
 The server is now running - watch the console output for instructions, but by default, your server is now running (with hot reload) at [http://localhost:8080/](http://localhost:8080/)
+
+## Live Preview
+
+[CalendarApp](https://dist-axagxv6c5.now.sh/)
